@@ -26,19 +26,19 @@ class Card:
 	__suit = ''
 
 	def __init__(self, val, symbol, suit):
-		self.val = val
-		self.symbol = symbol
-		self.suit = suit
+		self.__val = val
+		self.__symbol = symbol
+		self.__suit = suit
 
 	#getter for the card's value
 	def get_val():
-		return self.val
+		return self.__val
 
 	#getter for the card's symbol
 	def get_symbol():
-		return self.symbol
+		return self.__symbol
 
 	#getter for the card's suit
 	def get_suit():
-		return self.suit
+		return self.__suit
 		
