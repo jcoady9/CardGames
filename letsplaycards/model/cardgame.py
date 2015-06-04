@@ -30,6 +30,7 @@ class CardGame:
 	__opponents = [] # list of computer opponents if the game requires more than one player
 
 	def __init__(self, hasOpponents = False, opponents_list = None):
+		self.__deck.shuffle()
 		if hasOpponents:
 			self.__opponents = opponents_list
 
