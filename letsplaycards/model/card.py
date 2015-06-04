@@ -24,6 +24,7 @@ class Card:
 	__val = 0
 	__symbol = ""
 	__suit = ''
+	__visible = False
 
 	def __init__(self, val, symbol, suit):
 		self.__val = val
@@ -32,13 +33,25 @@ class Card:
 
 	#getter for the card's value
 	def get_val():
+		"getter for value"
 		return self.__val
 
 	#getter for the card's symbol
 	def get_symbol():
+		"getter for the symbol"
 		return self.__symbol
 
 	#getter for the card's suit
-	def get_suit():
+	def get_suit
+		"getter for the suit"
 		return self.__suit
+
+	def isVisible():
+		"determines if the card is face up or face down"
+		return self.__visible
+
+	def set_visibility(visiblity):
+		"set whether the card symbol is visible on screen"
+		self.__visible = visiblity
+		return
 		
