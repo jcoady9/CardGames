@@ -19,6 +19,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import random
+
 from card import Card
 
 class Deck:
@@ -35,13 +37,9 @@ class Deck:
 
 		self.__cards = [None] * 52
 
-		i = 0
 		for suit in Deck.suitsString:
-			k = 0
-			for symbol in Deck.cardSymbols:
-				self.__cards[i] = Card(Deck.baseValues[k], symbol, suit)
-				k += 1
-				i += 1
+			for k, symbol in Deck.cardSymbols:
+				self.__cards[k] = Card(Deck.baseValues[k], symbol, suit)
 
 	def drawCard(self):
 		"draw a card from the top of the deck"
@@ -49,4 +47,5 @@ class Deck:
 
 	def shuffle(self):
 		"shuffles the order of the cards" 
+		random.shuffle(self.__cards)
 		
