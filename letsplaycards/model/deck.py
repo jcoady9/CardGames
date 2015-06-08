@@ -54,4 +54,5 @@ class Deck:
 	def shuffle(self):
 		"shuffles the order of the cards" 
 		random.shuffle(self.__cards)
+		return
 		
