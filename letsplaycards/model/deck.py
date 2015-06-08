@@ -37,13 +37,19 @@ class Deck:
 
 		self.__cards = [None] * 52
 
+		k = 0
 		for suit in Deck.suitsString:
-			for k, symbol in Deck.cardSymbols:
-				self.__cards[k] = Card(Deck.baseValues[k], symbol, suit)
+			for i, symbol in enumerate(Deck.cardSymbols):
+				self.__cards[k] = Card(Deck.baseValues[i], symbol + suit, suit)
+				k += 1
+
+	def cards(self):
+		"returns the list of cards in the deck"
+		return self.__cards
 
 	def drawCard(self):
 		"draw a card from the top of the deck"
-		return cards.top()
+		return self.__cards.top()
 
 	def shuffle(self):
 		"shuffles the order of the cards" 
