@@ -19,40 +19,36 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import random
+from deck import Deck
 
-from card import Card
+testDeck = Deck()
 
-class Deck:
-	'represents the deck of 52 cards (excluding joker card)'
+cards = testDeck.cards()
 
-	suitsString = "DCSH" # Diamonds, Clubs, Spades, Hearts
-	cardSymbols = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"]
-	baseValues = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+print "printing deck...\n"
 
-	__cards = [] # list of cards represented by deck
+i = 0
+for suit in Deck.suitsString:
+	string = []
+	for symbol in Deck.cardSymbols:
+		string.append(cards[i].get_symbol())
+		i += 1
+	print " ".join(string)
 
-	def __init__(self):
-		"initialize the deck with 52 cards of 13 different values and 4 suites"
+print "\ndeck after being shuffled...\n"
 
-		self.__cards = [None] * 52
+testDeck.shuffle()
 
-		k = 0
-		for suit in Deck.suitsString:
-			for i, symbol in enumerate(Deck.cardSymbols):
-				self.__cards[k] = Card(Deck.baseValues[i], symbol + suit, suit)
-				k += 1
+cards = testDeck.cards()
 
-	def cards(self):
-		"returns the list of cards in the deck"
-		return self.__cards
+i = 0
+for suit in Deck.suitsString:
+	string = []
+	for symbol in Deck.cardSymbols:
+		string.append(cards[i].get_symbol())
+		i += 1
+	print " ".join(string)
 
-	def drawCard(self):
-		"draw a card from the top of the deck"
-		return self.__cards.pop()
-
-	def shuffle(self):
-		"shuffles the order of the cards" 
-		random.shuffle(self.__cards)
-		return
-		
+print "\nsize of deck: " + str(len(cards))
+print "top card: " + testDeck.drawCard().get_symbol()
+print "size of deck: " + str(len(cards))
