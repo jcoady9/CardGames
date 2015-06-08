@@ -121,11 +121,11 @@ class Solitaire(CardGame):
 		args = str.partition(args, " ")
 		if args[0] == "quit":
 			sys.exit()
-		if args[0] = "move":
+		if args[0] == "move":
 			return moveCard(args[2])
 		if args[0] == "flip":
 			flipCard(args[2])
-		if args[0] = "draw" and args[2] == "card":
+		if args[0] == "draw" and args[2] == "card":
 			return drawCard()
 		if args[0] == "refill" and args[2] == "stack":
 			refillStack()
