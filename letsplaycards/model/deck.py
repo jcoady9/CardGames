@@ -49,7 +49,7 @@ class Deck:
 
 	def drawCard(self):
 		"draw a card from the top of the deck"
-		return self.__cards.top()
+		return self.__cards.pop()
 
 	def shuffle(self):
 		"shuffles the order of the cards" 

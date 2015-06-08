@@ -29,4 +29,6 @@ for suit in Deck.suitsString:
 		i += 1
 	print " ".join(string)
 
-print "\n top card: " + testDeck.drawCard()
+print "\nsize of deck: " + str(len(cards))
+print "top card: " + testDeck.drawCard().get_symbol()
+print "size of deck: " + str(len(cards))
