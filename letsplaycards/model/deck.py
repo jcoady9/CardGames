@@ -32,7 +32,7 @@ class Deck:
 
 	__cards = [] # list of cards represented by deck
 
-	def __init__(self):
+	def __init__(self, values = None):
 		"initialize the deck with 52 cards of 13 different values and 4 suites"
 
 		self.__cards = [None] * 52
@@ -40,7 +40,12 @@ class Deck:
 		k = 0
 		for suit in Deck.suitsString:
 			for i, symbol in enumerate(Deck.cardSymbols):
-				self.__cards[k] = Card(Deck.baseValues[i], symbol + suit, suit)
+				value = -1
+				if values == None:
+					value = Deck.baseValues[i]
+				else:
+					value = values[i]
+				self.__cards[k] = Card(values, symbol + suit, suit)
 				k += 1
 
 	def cards(self):

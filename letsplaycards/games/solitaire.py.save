@@ -22,12 +22,9 @@
 import sys
 
 from model.cardgame import CardGame
-from model.deck import Deck
 
 class Solitaire(CardGame):
 	'class representing a game of Solitaire'
-
-	values = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 1]
 
 	__stack = []
 	__waste_pile = []
@@ -35,18 +32,18 @@ class Solitaire(CardGame):
 	__tableau_piles = []
 
 	def __init__(self):
-		self.__stack = Deck(Solitaire.values)
-		self.__stack.shuffle()
-		self.__tableau_piles = [] * 7
-		self.__foundation_piles = [] * 4 
+		self.__stack = Deck()
+		self.__deck.shuffle()
+		self.__tableau_piles = [None] * 7
+		self.__foundation_piles = [None] * 4 
 
-		for pile_size, pile in enumerate(self.__tableau_piles):
-			i = 0
-			while i <= pile_size:
-				pile.append(self.__stack.drawCard())
-				if i == pile_size:
-					pile[i].set_visibility(True)
-				i += 1
+		for pile in self.__tableau_piles:
+			i = j = 1
+			for i in len(self.__tableau_piles) + 1:
+				pile.push(self.__stack.pop())
+				if i == j:
+					j += 1
+					pile.top.set_visibility(True)
 
 	def hasComputerOpponent(self):
 		"returns false since solitaire is a single-player game"
@@ -59,18 +56,17 @@ class Solitaire(CardGame):
 			return True
 		return False
 
-	def moveFoundation(self, card, foundation):
+	def moveFoundation(self, card_symbol, foundation):
 		"helper method to move a card to a Foundation pile"
 		pile_num = int(foundation) - 1
-		if self.__waste_pile:
-			waste_top = self.__waste_pile[-1]
-			if waste_top.get_suit() == card.get_suit() and waste_top.get_value() == self.__foundation_piles[pile_num][-1].get_value() + 1:
-				self.__foundation_piles[pile_num].push(self.__waste_pile.pop())
-				return True
+		waste_symbol = self.__waste_pile.top().get_symbol()
+		if waste_symbol[1] == card_symbol[1] and self.__waste_pile.top().get_value() == self.__foundation_piles[pile_num].top() + 1:
+			self.__foundation_piles[pile_num].push(self.__waste_pile.pop())
+			return True
 		for pile in self.__tableau_piles:
-			pile_card = pile[-1]
-			if pile_card.get_symbol() == card.get_symbol():
-				self.__foundation_piles[pile_num].push(pile.pop())
+			card = pile.top()
+			if card.get_symbol() == card_symbol and self.__foundation_piles[pile_num].top() + 1:
+					self.__foundation_piles[pile_num].push(pile.pop())
 				return True
 		return False
 

@@ -20,4 +20,28 @@
 # SOFTWARE.
 
 from solitaire import Solitaire
+from model.card import Card
 
+testSolitaire = Solitaire()
+
+#test hasComputerOpponent()
+assert testSolitaire.hasComputerOpponent() is False
+
+#test moveFoundation()
+cards = []
+cards.append(Card(3, "3H", "H"))
+cards.append(Card(4, "4H", "H"))
+cards.append(Card(2, "2H", "H"))
+cards.append(Card(2, "2D", "D"))
+cards.append(Card(1, "AH", "H"))
+cards.append(Card(10, "JH", "H"))
+
+assert testSolitaire.moveFoundation(cards.pop(), 0) is False # JH on empty
+assert testSolitaire.moveFoundation(cards.pop(), 0) is True  # AH on empty
+assert testSolitaire.moveFoundation(cards.pop(), 0) is False # 2D on AH
+assert testSolitaire.moveFoundation(cards.pop(), 0) is True  # 2H on AH
+assert testSolitaire.moveFoundation(cards.pop(), 0) is False # 4H on 2H
+assert testSolitaire.moveFoundation(cards.pop(), 0) is True  # 3H on 2H
+
+
+ 
