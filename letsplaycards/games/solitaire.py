@@ -80,11 +80,17 @@ class Solitaire(CardGame):
 			return False
 		if not self.__foundation_piles[pile_num]:
 			if card.get_value() == 1:
-				self.__foundation_piles[pile_num].append(self.findCard(card.get_symbol()))
-				return True
+				card = self.findCard(card.get_symbol())
+				if card is not None:
+					self.__foundation_piles[pile_num].append(card)
+					return True
 		if self.__foundation_piles[pile_num]:
-			if card.get_suit() == self.__foundation_piles[pile_num] and card.get_value() == self.__foundation_piles[pile_num][-1].get_value():
-				self.__foundation_piles[pile_num].append(findCard(card.get_symbol()))
+			if card.get_suit() == self.__foundation_piles[pile_num][-1].get_suit() and card.get_value() == self.__foundation_piles[pile_num][-1].get_value() + 1:
+				card = self.findCard(card.get_symbol())
+				if isinstance(card, list):
+					self.__foundation_piles[pile_num].extend(card)
+				else:
+					self.__foundation_piles[pile_num].append(card)
 				return True
 		return False
 
