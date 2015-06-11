@@ -38,7 +38,7 @@ class Solitaire(CardGame):
 		self.__stack = Deck(Solitaire.values)
 		self.__stack.shuffle()
 		self.__tableau_piles = [] * 7
-		self.__foundation_piles = [] * 4 
+		self.__foundation_piles = [[] for __ in range(4)]
 
 		for pile_size, pile in enumerate(self.__tableau_piles):
 			i = 0
@@ -61,8 +61,9 @@ class Solitaire(CardGame):
 
 	def findCard(self, symbol):
 		"find the card with the given symbol"
+		waste_top = self.__waste_pile[-1]
 		if self.__waste_pile:
-			if waste_top.get_value() == symbol:
+			if waste_top.get_symbol() == symbol:
 				return self.__waste_pile.pop()
 		for pile in self.__tableau_piles:
 			for i, card in enumerate(pile):
@@ -75,15 +76,15 @@ class Solitaire(CardGame):
 	def moveFoundation(self, card, foundation):
 		"helper method to move a card to a Foundation pile"
 		pile_num = int(foundation) - 1
-		if pile_num <= 0 or pile_num > 4:
+		if pile_num < 0 or pile_num >= 4:
 			return False
 		if not self.__foundation_piles[pile_num]:
 			if card.get_value() == 1:
-				self.__foundation_piles[pile_num].push(findCard(card.get_symbol()))
+				self.__foundation_piles[pile_num].append(self.findCard(card.get_symbol()))
 				return True
 		if self.__foundation_piles[pile_num]:
 			if card.get_suit() == self.__foundation_piles[pile_num] and card.get_value() == self.__foundation_piles[pile_num][-1].get_value():
-				self.__foundation_piles[pile_num].push(findCard(card.get_symbol()))
+				self.__foundation_piles[pile_num].append(findCard(card.get_symbol()))
 				return True
 		return False
 

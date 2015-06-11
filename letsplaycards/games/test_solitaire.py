@@ -38,8 +38,8 @@ cards.append(Card(10, "JH", "H"))
 
 testSolitaire._Solitaire__waste_pile = cards
 
-for card in testSolitaire._Solitaire__waste_pile:
-	print card.get_symbol()
+# assert testSolitaire.moveFoundation(Card(2, "2S", "S"), 0) is False
+# assert testSolitaire.moveFoundation(Card(2, "2S", "S"), 4) is False
 
 assert testSolitaire.moveFoundation(cards.pop(), 1) is False # JH on empty
 assert testSolitaire.moveFoundation(cards.pop(), 1) is True  # AH on empty
