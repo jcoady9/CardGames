@@ -32,7 +32,7 @@ class Card:
 		self.__suit = suit
 
 	#getter for the card's value
-	def get_val(self):
+	def get_value(self):
 		"getter for value"
 		return self.__val
 
