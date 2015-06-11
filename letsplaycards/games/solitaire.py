@@ -111,7 +111,7 @@ class Solitaire(CardGame):
 		tableau_card = self.__tableau_piles[pile_num].top()
 		for pile in self.__tableau_piles:
 			for i, card in pile:
-				if card.get_symbol() == card_symbol and canMoveToTableau(card, self.__tableau_piles[pile_num]):
+				if card.get_symbol() == card_symbol and self.canMoveToTableau(card, self.__tableau_piles[pile_num]):
 					card = pile[i:]
 					self.__tableau_piles[pile_num].extend(card)
 					del pile[i:]
@@ -122,9 +122,9 @@ class Solitaire(CardGame):
 		"moves a card from one pile to another"
 		args = str.partition(args, " ")
 		if args[2][0] == "F":
-			return moveFoundation(args[0], args[2])
+			return self.moveFoundation(args[0], args[2])
 		if args[2][0] == "T":
-			return moveTableau(args[0], args[2])
+			return self.moveTableau(args[0], args[2])
 		return False
 
 	def flipCard(self, tableau):
@@ -146,15 +146,15 @@ class Solitaire(CardGame):
 		if args[0] == "quit":
 			sys.exit()
 		if args[0] == "move":
-			return moveCard(args[2])
+			return self.moveCard(args[2])
 		if args[0] == "flip":
-			flipCard(args[2])
+			self.flipCard(args[2])
 		if args[0] == "draw" and args[2] == "card":
-			return drawCard()
+			return self.drawCard()
 		if args[0] == "refill" and args[2] == "stack":
-			refillStack()
+			self.refillStack()
 		if args[0] == "help" or "rules":
-			printRules()
+			self.printRules()
 		else:
 			return False
 		return True

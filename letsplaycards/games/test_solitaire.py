@@ -54,3 +54,6 @@ assert testSolitaire.moveFoundation(cards.pop(), 1) is False # 4H on 2H
 testSolitaire._Solitaire__waste_pile.pop()
 
 assert testSolitaire.moveFoundation(cards.pop(), 1) is True  # 3H on 2H
+
+#test canMoveToTableau()
+
