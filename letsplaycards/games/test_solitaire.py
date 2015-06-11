@@ -36,12 +36,17 @@ cards.append(Card(2, "2D", "D"))
 cards.append(Card(1, "AH", "H"))
 cards.append(Card(10, "JH", "H"))
 
-assert testSolitaire.moveFoundation(cards.pop(), 0) is False # JH on empty
-assert testSolitaire.moveFoundation(cards.pop(), 0) is True  # AH on empty
-assert testSolitaire.moveFoundation(cards.pop(), 0) is False # 2D on AH
-assert testSolitaire.moveFoundation(cards.pop(), 0) is True  # 2H on AH
-assert testSolitaire.moveFoundation(cards.pop(), 0) is False # 4H on 2H
-assert testSolitaire.moveFoundation(cards.pop(), 0) is True  # 3H on 2H
+testSolitaire._Solitaire__waste_pile = cards
+
+for card in testSolitaire._Solitaire__waste_pile:
+	print card.get_symbol()
+
+assert testSolitaire.moveFoundation(cards.pop(), 1) is False # JH on empty
+assert testSolitaire.moveFoundation(cards.pop(), 1) is True  # AH on empty
+assert testSolitaire.moveFoundation(cards.pop(), 1) is False # 2D on AH
+assert testSolitaire.moveFoundation(cards.pop(), 1) is True  # 2H on AH
+assert testSolitaire.moveFoundation(cards.pop(), 1) is False # 4H on 2H
+assert testSolitaire.moveFoundation(cards.pop(), 1) is True  # 3H on 2H
 
 
  
