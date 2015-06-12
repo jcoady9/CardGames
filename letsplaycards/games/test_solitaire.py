@@ -39,21 +39,39 @@ cards.append(Card(10, "JH", "H"))
 testSolitaire._Solitaire__waste_pile = [card for card in cards]
 
 assert testSolitaire.moveFoundation(Card(1, "AH", "H"), 0) is False
-assert testSolitaire.moveFoundation(Card(1, "AH", "H"), 4) is False
+assert testSolitaire.moveFoundation(Card(1, "AH", "H"), 4) is False  # <- sometimes throws a false-negative, don't know why...
 
 assert testSolitaire.moveFoundation(cards.pop(), 1) is False # JH on empty
 testSolitaire._Solitaire__waste_pile.pop()
 assert testSolitaire.moveFoundation(cards.pop(), 1) is True  # AH on empty
-
 assert testSolitaire.moveFoundation(cards.pop(), 1) is False # 2D on AH
 testSolitaire._Solitaire__waste_pile.pop()
-
 assert testSolitaire.moveFoundation(cards.pop(), 1) is True  # 2H on AH
-
 assert testSolitaire.moveFoundation(cards.pop(), 1) is False # 4H on 2H
 testSolitaire._Solitaire__waste_pile.pop()
-
 assert testSolitaire.moveFoundation(cards.pop(), 1) is True  # 3H on 2H
 
 #test canMoveToTableau()
+cards = []
+cards.append(Card(13, "KD", "D"))
+cards.append(Card(11, "JS", "S"))
+cards.append(Card(10, "10S", "S"))
+cards.append(Card(12, "QD", "D"))
+cards.append(Card(12, "QS", "S"))
+cards.append(Card(12, "QC", "C"))
+cards.append(Card(13, "KC", "C"))
+cards.append(Card(12, "QC", "C"))
 
+testSolitaire._Solitaire__tableau_piles[0] = []
+
+assert testSolitaire.canMoveToTableau(cards.pop(), testSolitaire._Solitaire__tableau_piles[0]) is False # QC on empty
+assert testSolitaire.canMoveToTableau(cards[-1], testSolitaire._Solitaire__tableau_piles[0]) is True    # KC on empty
+testSolitaire._Solitaire__tableau_piles[0].append(cards.pop()) 
+assert testSolitaire.canMoveToTableau(cards.pop(), testSolitaire._Solitaire__tableau_piles[0]) is False # QC on KC
+assert testSolitaire.canMoveToTableau(cards.pop(), testSolitaire._Solitaire__tableau_piles[0]) is False # QS on KC
+assert testSolitaire.canMoveToTableau(cards[-1], testSolitaire._Solitaire__tableau_piles[0]) is True    # QD on KC
+testSolitaire._Solitaire__tableau_piles[0].append(cards.pop()) 
+assert testSolitaire.canMoveToTableau(cards.pop(), testSolitaire._Solitaire__tableau_piles[0]) is False # 10S on QD
+assert testSolitaire.canMoveToTableau(cards[-1], testSolitaire._Solitaire__tableau_piles[0]) is True    # JS on QD
+testSolitaire._Solitaire__tableau_piles[0].append(cards.pop()) 
+assert testSolitaire.canMoveToTableau(cards.pop(), testSolitaire._Solitaire__tableau_piles[0]) is False # KD on JS
