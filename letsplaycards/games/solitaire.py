@@ -37,7 +37,7 @@ class Solitaire(CardGame):
 	def __init__(self):
 		self.__stack = Deck(Solitaire.values)
 		self.__stack.shuffle()
-		self.__tableau_piles = [] * 7
+		self.__tableau_piles = [[] for __ in range(7)]
 		self.__foundation_piles = [[] for __ in range(4)]
 
 		for pile_size, pile in enumerate(self.__tableau_piles):
@@ -96,12 +96,16 @@ class Solitaire(CardGame):
 
 	def canMoveToTableau(self, card, tableau_pile):
 		"ensures that the move to the tableau pile is valid"
-		if not tableau_pile and card.get_symbol()[1] == "K":
-			return True
-		if card.get_value() == tableau_pile.top().get_value() - 1:
-			if (card_symbol[1] == "D" or "H") and not(tableau_symbol[1] == "D" or "H"):
+		if len(tableau_pile) < 1:
+			if card.get_value() == 13:
 				return True
-			if (card_symbol[1] == "C" or "S") and not(tableau_symbol[1] == "C" or "S"):
+			return False
+		if card.get_value() == tableau_pile[-1].get_value() - 1:
+			red_suits = ["D", "H"]
+			black_suits = ["C", "S"]
+			if (card.get_suit() in black_suits) and (tableau_pile[-1].get_suit() not in  black_suits):
+				return True
+			if (card.get_suit() in red_suits) and (tableau_pile[-1].get_suit() not in red_suits):
 				return True
 		return False
 
