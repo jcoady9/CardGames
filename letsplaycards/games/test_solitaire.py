@@ -75,3 +75,13 @@ assert testSolitaire.canMoveToTableau(cards.pop(), testSolitaire._Solitaire__tab
 assert testSolitaire.canMoveToTableau(cards[-1], testSolitaire._Solitaire__tableau_piles[0]) is True    # JS on QD
 testSolitaire._Solitaire__tableau_piles[0].append(cards.pop()) 
 assert testSolitaire.canMoveToTableau(cards.pop(), testSolitaire._Solitaire__tableau_piles[0]) is False # KD on JS
+
+#test moveTableau()
+testSolitaire._Solitaire__tableau_piles[0] = []
+testSolitaire._Solitaire__tableau_piles[1] = [Card(13, "KS", "S")]
+testSolitaire._Solitaire__tableau_piles[2] = [Card(12, "QH", "H")]
+testSolitaire._Solitaire__tableau_piles[3] = [Card(11, "JC", "C"), Card(10, "10H", "H"), Card(9, "9S", "S")]
+
+assert testSolitaire.moveTableau(testSolitaire._Solitaire__tableau_piles[1][-1], 1) is True  # KS on empty
+assert testSolitaire.moveTableau(testSolitaire._Solitaire__tableau_piles[2][-1], 1) is True  # QH on KS
+assert testSolitaire.moveTableau(testSolitaire._Solitaire__tableau_piles[3][0], 1) is True  # JC, 10H, 9S on QD

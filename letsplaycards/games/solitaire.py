@@ -61,13 +61,14 @@ class Solitaire(CardGame):
 
 	def findCard(self, symbol):
 		"find the card with the given symbol"
-		waste_top = self.__waste_pile[-1]
 		if self.__waste_pile:
+			waste_top = self.__waste_pile[-1]
 			if waste_top.get_symbol() == symbol:
 				return self.__waste_pile.pop()
 		for pile in self.__tableau_piles:
 			for i, card in enumerate(pile):
-				if card.get_symbol() == symbol and card.isVisible():
+				print str(i)
+				if card.get_symbol() == symbol:
 					cards = pile[i:]
 					del pile[i:]
 					return cards
@@ -103,23 +104,27 @@ class Solitaire(CardGame):
 		if card.get_value() == tableau_pile[-1].get_value() - 1:
 			red_suits = ["D", "H"]
 			black_suits = ["C", "S"]
-			if (card.get_suit() in black_suits) and (tableau_pile[-1].get_suit() not in  black_suits):
+			if (card.get_suit() in black_suits) and (tableau_pile[-1].get_suit() not in black_suits):
 				return True
 			if (card.get_suit() in red_suits) and (tableau_pile[-1].get_suit() not in red_suits):
 				return True
 		return False
 
-	def moveTableau(self, card_symbol, tableau):
+	def moveTableau(self, card, tableau_num):
 		"helper method to move a card (and any cards under it) to the Tableau pile"
-		pile_num = int(tableau - 1)
-		tableau_card = self.__tableau_piles[pile_num].top()
-		for pile in self.__tableau_piles:
-			for i, card in pile:
-				if card.get_symbol() == card_symbol and self.canMoveToTableau(card, self.__tableau_piles[pile_num]):
-					card = pile[i:]
-					self.__tableau_piles[pile_num].extend(card)
-					del pile[i:]
-					return True
+		pile_num = int(tableau_num) - 1
+		if pile_num < 0 or pile_num > 7:
+			print "illegal tableau number"
+			return False
+		if self.canMoveToTableau(card, self.__tableau_piles[pile_num]):
+			print "can print card"
+			card = self.findCard(card.get_symbol())
+			if isinstance(card, list):
+				self.__tableau_piles[pile_num].extend(card)
+			else:
+				self.__tableau_piles[pile_num].append(card)
+			return True
+		print "cannot move card"
 		return False
 
 	def moveCard(self, args):
