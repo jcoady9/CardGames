@@ -52,6 +52,14 @@ class Deck:
 		"returns the list of cards in the deck"
 		return self.__cards
 
+	def addCards(self, new_cards):
+		"sets a deck with a list of cards"
+		self.__cards = new_cards
+
+	def size(self):
+		"returns the length of the cards list"
+		return len(self.__cards)
+
 	def drawCard(self):
 		"draw a card from the top of the deck"
 		return self.__cards.pop()
@@ -60,4 +68,7 @@ class Deck:
 		"shuffles the order of the cards" 
 		random.shuffle(self.__cards)
 		return
+
+	def reverse(self):
+		return self.__cards.reverse()
 		
