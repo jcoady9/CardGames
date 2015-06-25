@@ -67,7 +67,6 @@ class Solitaire(CardGame):
 				return self.__waste_pile.pop()
 		for pile in self.__tableau_piles:
 			for i, card in enumerate(pile):
-				print str(i)
 				if card.get_symbol() == symbol:
 					cards = pile[i:]
 					del pile[i:]
@@ -114,17 +113,14 @@ class Solitaire(CardGame):
 		"helper method to move a card (and any cards under it) to the Tableau pile"
 		pile_num = int(tableau_num) - 1
 		if pile_num < 0 or pile_num > 7:
-			print "illegal tableau number"
 			return False
 		if self.canMoveToTableau(card, self.__tableau_piles[pile_num]):
-			print "can print card"
 			card = self.findCard(card.get_symbol())
 			if isinstance(card, list):
 				self.__tableau_piles[pile_num].extend(card)
 			else:
 				self.__tableau_piles[pile_num].append(card)
 			return True
-		print "cannot move card"
 		return False
 
 	def moveCard(self, args):
@@ -136,18 +132,17 @@ class Solitaire(CardGame):
 			return self.moveTableau(args[0], args[2])
 		return False
 
-	def flipCard(self, tableau):
+	def flipCard(self, tableau_num):
 		"flips a face down card to be face up"
-		if self.__tableau_piles[int(tableau) - 1]:
-			self.__tableau_piles[int(tableau) - 1].top().set_visibility(True)
+		if self.__tableau_piles[int(tableau_num) - 1]:
+			self.__tableau_piles[int(tableau_num) - 1][-1].set_visibility(True)
 		return
 
 	def refillStack(self):
 		"refills the stack pile with the waste pile once its depleted"
-		if not self.__stack:
-			self.__stack = self.__waste_pile.reverse()
-			return True
-		return False
+		self.__stack.addCards(self.__waste_pile.cards().reverse())
+		self.__waste_pile.__cards = []
+		return True
 
 	def playUserMove(self, args):
 		"carries out player's move based on args"
