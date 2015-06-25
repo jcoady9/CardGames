@@ -55,6 +55,7 @@ class Deck:
 	def addCards(self, new_cards):
 		"sets a deck with a list of cards"
 		self.__cards = new_cards
+		return
 
 	def size(self):
 		"returns the length of the cards list"
