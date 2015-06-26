@@ -180,23 +180,29 @@ class Solitaire(CardGame):
 
 		print stack_waste_str[0] + " " + stack_waste_str[1]
 
-		foundation_strs = [None] * 4
-		for i, foundation in self.__foundation_piles:
+		print " "
+
+		foundation_strs = [[] for __ in range(4)]
+		for i, foundation in enumerate(self.__foundation_piles):
 			for card in foundation:
 				foundation_strs[i].append(card.get_symbol())
 			print "F" + str(i + 1) + ": " + " ".join(foundation_strs[i])
 
-		tableau_strs = [None] * 7
-		for i, tableau in self.__tableau_piles:
+		print " "
+
+		tableau_strs = [[] for __ in range(7)]
+		for i, tableau in enumerate(self.__tableau_piles):
 			for card in tableau:
 				if card.isVisible():
 					tableau_strs[i].append(card.get_symbol())
 				else:
 					tableau_strs[i].append("X")
 			print "T" + str(i + 1) + ": " + " ".join(tableau_strs[i])
+		print " "
 		return
 
 	def printRules(self):
 		"print the rules of the game"
+		print "TODO: print rules..."
 		#TODO: implement me
 		return
