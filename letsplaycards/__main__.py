@@ -19,34 +19,37 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import getopt
+import argparse
+import sys
 
 from model.cardgame import CardGame
+from games.solitaire import Solitaire
 
 def main(argv = None):
-	print "Hello card game fans!"
+	parser = argparse.ArgumentParser(description = "collection of card games")
+	parser.add_argument("game", help = "name of the game you want to play")
+	argv = parser.parse_args()
 
-	game = CardGame(True, [" ", "!", "#"])
+	game = CardGame()
+	if argv.game == "solitaire":
+		game = Solitaire()
+	else:
+		print "game is unavailable."
+		sys.exit()
+
+	game.update()
 
 	while not(game.isGameOver()):
-
-		print "your move."
-
 		while not(game.playUserMove(raw_input("make a move: "))):
 			print "Invalid Move, try again."
-
 		game.update()
-
-		print "opponent(s') move."
 
 		if game.hasComputerOpponent():
+			print "opponent(s') move."
 			for opponents in game.get_opponentsList():
 				print "playing oppenent move"
-
-		game.update()
-		
+			game.update()
 	print "game over."
-
 
 if __name__ == '__main__':
 	main()
